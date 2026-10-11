@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biotechnology & Computational Systems</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500&family=Outfit:wght@100;200;300;400;500&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        forest: '#0F261B',
+                        lime: '#65A30D',
+                        cyan: '#0891B2',
+                        darkblue: '#0B132B'
+                    },
+                    fontFamily: {
+                        sans: ['"Outfit"', '"Inter"', 'sans-serif'],
+                        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Outfit', 'Inter', sans-serif;
+            background-color: #FAFAFC;
+            color: #0F261B;
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAFAFC;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #E2E8F0;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #65A30D;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(35px);
+            filter: blur(6px);
+            transition: opacity 1.1s cubic-bezier(0.16, 1, 0.3, 1), transform 1.1s cubic-bezier(0.16, 1, 0.3, 1), filter 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform, filter;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0);
+        }
+
+        .reveal-text {
+            opacity: 0;
+            transform: translateY(25px);
+            transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.1s, transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
+        }
+        .reveal-text.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-[#FAFAFC] text-forest antialiased selection:bg-lime/10 selection:text-forest">
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-[#FAFAFC]/90 backdrop-blur-md transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-8 h-24 flex items-center justify-end">
+            <nav class="hidden md:flex items-center gap-8 text-[10px] font-light uppercase tracking-[0.2em] text-slate-500 overflow-x-auto">
+                <a href="#quote" class="hover:text-forest transition-colors">Philosophy</a>
+                <a href="#motto" class="hover:text-forest transition-colors">Motto</a>
+                <a href="#current-era" class="hover:text-forest transition-colors">Current Era</a>
+                <a href="#new-era" class="hover:text-forest transition-colors">New Era</a>
+                <a href="#interconnected-era" class="hover:text-forest transition-colors">Interconnected</a>
+                <a href="#discoveries" class="hover:text-forest transition-colors">Discoveries</a>
+                <a href="#scope" class="hover:text-forest transition-colors">Scope</a>
+                <a href="#limitations" class="hover:text-forest transition-colors">Limitations</a>
+                <a href="#future" class="hover:text-forest transition-colors">Future</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="relative z-10">
+        <section class="h-screen w-full flex flex-col justify-center items-center px-8 text-center bg-white relative overflow-hidden">
+            <canvas id="hero-dots-canvas" class="absolute inset-0 pointer-events-none z-0 w-full h-full"></canvas>
+            <div class="max-w-5xl mx-auto relative z-10">
+                <h1 class="text-5xl sm:text-7xl lg:text-8xl font-extralight tracking-tight text-forest mb-10 leading-[1.08] reveal-text" style="transition-delay: 200ms;">
+                    Biotechnology meets computational deep learning systems
+                </h1>
+                <p class="text-base sm:text-xl text-slate-500 max-w-2xl mx-auto font-extralight leading-relaxed reveal-text" style="transition-delay: 400ms;">
+                    Their integration to generate new biological systems for life and beyond in this current era.
+                </p>
+            </div>
+        </section>
+
+        <section id="quote" class="py-40 px-8 bg-transparent">
+            <div class="max-w-4xl mx-auto text-center reveal">
+                <span class="text-[10px] font-mono font-light tracking-[0.3em] uppercase text-slate-400 mb-8 block">01 // PHILOSOPHY</span>
+                <blockquote class="text-3xl sm:text-5xl font-extralight text-forest leading-tight tracking-tight mb-8">
+                    “Biology is no longer merely an observational science. Through computational deep learning, it operates as an information network—programmable, predictable, and continuous.”
+                </blockquote>
+            </div>
+        </section>
+
+        <section id="motto" class="py-32 px-8 bg-transparent">
+            <div class="max-w-6xl mx-auto">
+                <span class="text-[10px] font-mono font-light tracking-[0.3em] uppercase text-slate-400 mb-12 block text-center">02 // MOTTO</span>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-16">
+                    <div class="reveal">
+                        <h3 class="text-2xl font-extralight text-forest mb-4">Decode</h3>
+                        <p class="text-slate-500 text-sm font-light leading-relaxed">Unraveling genomic sequences, protein folding dynamics, and metabolic pathways with transformer architectures.</p>
+                    </div>
+                    <div class="reveal" style="transition-delay: 150ms;">
+                        <h3 class="text-2xl font-extralight text-forest mb-4">Synthesize</h3>
+                        <p class="text-slate-500 text-sm font-light leading-relaxed">Generative neural networks designing novel molecular structures and synthetic pathways beyond natural evolutionary limits.</p>
+                    </div>
+                    <div class="reveal" style="transition-delay: 300ms;">
+                        <h3 class="text-2xl font-extralight text-forest mb-4">Transcend</h3>
+                        <p class="text-slate-500 text-sm font-light leading-relaxed">Addressing longevity, planetary health, and bio-computational systems through seamless biological integration.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="current-era" class="py-36 px-8 bg-transparent">
+            <div class="max-w-6xl mx-auto space-y-16">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 reveal items-start">
+                    <div class="md:col-span-4">
+                        <span class="text-xs font-mono font-light text-slate-400 uppercase tracking-widest block mb-2">ERA 01</span>
+                        <h3 class="text-3xl font-extralight text-forest">Current Era</h3>
+                    </div>
+                    <div class="md:col-span-8">
+                        <p class="text-slate-600 text-base font-light leading-relaxed mb-6">
+                            High-throughput multi-omics sequencing, foundational protein structure prediction, and precise CRISPR editing. Deep learning functions as an analytical engine for massive biological datasets.
+                        </p>
+                        <div class="flex flex-wrap gap-8 text-xs font-extralight text-slate-500">
+                            <span>+ Structural Biology Automation</span>
+                            <span>+ Petabyte Genomics</span>
+                            <span>+ Targeted Gene Editing</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- WebGL 3D Model 1: DNA & Genome Sequencing -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white/60 border border-slate-200/80 rounded-3xl p-8 backdrop-blur-md reveal shadow-sm">
+                    <div class="lg:col-span-7 h-[400px] w-full rounded-2xl overflow-hidden relative bg-slate-950 border border-slate-800" id="webgl-dna"></div>
+                    <div class="lg:col-span-5 space-y-4">
+                        <span class="text-xs font-mono text-lime uppercase tracking-widest block">3D WebGL Visualization // 01</span>
+                        <h4 class="text-2xl font-light text-forest">DNA Double Helix & Genome Sequencing</h4>
+                        <p class="text-slate-500 text-sm font-light leading-relaxed">
+                            High-precision simulation of base pair alignments (Adenine, Thymine, Guanine, Cytosine) mapped against deep learning transformer embeddings.
+                        </p>
+                        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100">
+                            <span class="text-xs font-mono text-cyan block mb-1">INTERCONNECTION DYNAMICS</span>
+                            <p class="text-slate-600 text-xs font-light leading-relaxed">
+                                Genomic sequences form the instruction set for biomolecules and cellular organelles, establishing the foundational code that AI deep learning models decode.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="new-era" class="py-36 px-8 bg-transparent">
+            <div class="max-w-6xl mx-auto space-y-16">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 reveal items-start">
+                    <div class="md:col-span-4">
+                        <span class="text-xs font-mono font-light text-lime uppercase tracking-widest block mb-2">ERA 02</span>
+                        <h3 class="text-3xl font-extralight text-forest">New Era</h3>
+                    </div>
+                    <div class="md:col-span-8">
+                        <p class="text-slate-600 text-base font-light leading-relaxed mb-6">
+                            The transition from analysis to generative design. Deep neural networks engineer non-natural enzymes, synthetic organelles, and customized genomic architectures from scratch.
+                        </p>
+                        <div class="flex flex-wrap gap-8 text-xs font-extralight text-slate-500">
+                            <span>+ De Novo Protein Synthesis</span>
+                            <span>+ Cell-Free Expression</span>
+                            <span>+ Autonomous Bio-Foundries</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- WebGL 3D Model 2: Biomolecules & Protein Folding -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white/60 border border-slate-200/80 rounded-3xl p-8 backdrop-blur-md reveal shadow-sm">
+                    <div class="lg:col-span-7 h-[400px] w-full rounded-2xl overflow-hidden relative bg-slate-950 border border-slate-800" id="webgl-biomol"></div>
+                    <div class="lg:col-span-5 space-y-4">
+                        <span class="text-xs font-mono text-lime uppercase tracking-widest block">3D WebGL Visualization // 02</span>
+                        <h4 class="text-2xl font-light text-forest">Biomolecular Folding & AlphaFold Structures</h4>
+                        <p class="text-slate-500 text-sm font-light leading-relaxed">
+                            Interactive 3D structural model demonstrating amino acid chain folding, tertiary structures, and ligand binding kinetics predicted by graph neural networks.
+                        </p>
+                        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100">
+                            <span class="text-xs font-mono text-cyan block mb-1">INTERCONNECTION DYNAMICS</span>
+                            <p class="text-slate-600 text-xs font-light leading-relaxed">
+                                Biomolecules construct the functional enzymatic machinery inside organelles, serving as physical transducers between genetic code and metabolic pathways.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="interconnected-era" class="py-36 px-8 bg-transparent">
+            <div class="max-w-6xl mx-auto space-y-16">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 reveal items-start">
+                    <div class="md:col-span-4">
+                        <span class="text-xs font-mono font-light text-cyan uppercase tracking-widest block mb-2">ERA 03</span>
+                        <h3 class="text-3xl font-extralight text-forest">Interconnected Era</h3>
+                    </div>
+                    <div class="md:col-span-8">
+                        <p class="text-slate-600 text-base font-light leading-relaxed mb-6">
+                            The convergence of living substrates with digital computing logic. Bio-hybrid neural networks, living computing arrays, and adaptive biological systems operating in real time.
+                        </p>
+                        <div class="flex flex-wrap gap-8 text-xs font-extralight text-slate-500">
+                            <span>+ Bio-Silicon Interfaces</span>
+                            <span>+ Planetary Bioremediation</span>
+                            <span>+ Self-Evolving Systems</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- WebGL 3D Model 3: Cellular Organelles -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white/60 border border-slate-200/80 rounded-3xl p-8 backdrop-blur-md reveal shadow-sm">
+                    <div class="lg:col-span-7 h-[400px] w-full rounded-2xl overflow-hidden relative bg-slate-950 border border-slate-800" id="webgl-organelles"></div>
+                    <div class="lg:col-span-5 space-y-4">
+                        <span class="text-xs font-mono text-lime uppercase tracking-widest block">3D WebGL Visualization // 03</span>
+                        <h4 class="text-2xl font-light text-forest">Cellular Organelles & Energy Synthesis</h4>
+                        <p class="text-slate-500 text-sm font-light leading-relaxed">
+                            3D rendering of mitochondria, ribosomes, and endoplasmic reticulum operating in tandem to execute cellular metabolism and protein synthesis.
+                        </p>
+                        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100">
+                            <span class="text-xs font-mono text-cyan block mb-1">INTERCONNECTION DYNAMICS</span>
+                            <p class="text-slate-600 text-xs font-light leading-relaxed">
+                                Organelles rely on precise genomic instructions and biomolecular enzymes to generate ATP and maintain homeostasis, feeding energy into neural and systemic networks.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- WebGL 3D Model 4: Microbiome Ecosystems -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white/60 border border-slate-200/80 rounded-3xl p-8 backdrop-blur-md reveal shadow-sm">
+                    <div class="lg:col-span-7 h-[400px] w-full rounded-2xl overflow-hidden relative bg-slate-950 border border-slate-800" id="webgl-microbiome"></div>
+                    <div class="lg:col-span-5 space-y-4">
+                        <span class="text-xs font-mono text-lime uppercase tracking-widest block">3D WebGL Visualization // 04</span>
+                        <h4 class="text-2xl font-light text-forest">Microbiome Ecosystems & Symbiosis</h4>
+                        <p class="text-slate-500 text-sm font-light leading-relaxed">
+                            Interactive cluster of diverse microbial cells exchanging signaling molecules and metabolic byproducts within host environments.
+                        </p>
+                        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100">
+                            <span class="text-xs font-mono text-cyan block mb-1">INTERCONNECTION DYNAMICS</span>
+                            <p class="text-slate-600 text-xs font-light leading-relaxed">
+                                Microbiomes interact directly with plant roots and animal host cells, modulating environmental nutrient cycles and immune responses through chemical signaling.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- WebGL 3D Model 5: Virus Capsid -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white/60 border border-slate-200/80 rounded-3xl p-8 backdrop-blur-md reveal shadow-sm">
+                    <div class="lg:col-span-7 h-[400px] w-full rounded-2xl overflow-hidden relative bg-slate-950 border border-slate-800" id="webgl-virus"></div>
+                    <div class="lg:col-span-5 space-y-4">
+                        <span class="text-xs font-mono text-lime uppercase tracking-widest block">3D WebGL Visualization // 05</span>
+                        <h4 class="text-2xl font-light text-forest">Viral Capsid Assembly & Host Adhesion</h4>
+                        <p class="text-slate-500 text-sm font-light leading-relaxed">
+                            Geometric icosahedral capsid simulation demonstrating spike protein binding mechanics and immune evasion pathways analyzed by AI models.
+                        </p>
+                        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100">
+                            <span class="text-xs font-mono text-cyan block mb-1">INTERCONNECTION DYNAMICS</span>
+                            <p class="text-slate-600 text-xs font-light leading-relaxed">
+                                Viruses insert genetic material into host genomes, driving evolutionary pressure and forcing the rapid adaptation of cellular defense systems and sequencing tools.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="discoveries" class="py-36 px-8 bg-transparent">
+            <div class="max-w-6xl mx-auto space-y-16">
+                <div>
+                    <span class="text-[10px] font-mono font-light tracking-[0.3em] uppercase text-slate-400 mb-4 block">04 // DISCOVERY ENGINES & BENCHMARKS</span>
+                    <h2 class="text-3xl sm:text-4xl font-extralight text-forest mb-6">Bio-AI Systems, Research & Analysis Tools</h2>
+                    <p class="text-slate-500 text-sm font-light leading-relaxed max-w-2xl">
+                        Interactive benchmark models evaluating computational deep learning throughput across biomolecular discovery engines.
+                    </p>
+                </div>
+
+                <!-- Interactive Chart Switcher -->
+                <div class="flex flex-wrap gap-4">
+                    <button onclick="updateChartData('model1')" class="chart-btn px-6 py-2.5 text-xs font-light tracking-widest uppercase rounded-full border border-forest/20 text-white bg-forest transition-all duration-300 shadow-sm">AlphaFold-BioX</button>
+                    <button onclick="updateChartData('model2')" class="chart-btn px-6 py-2.5 text-xs font-light tracking-widest uppercase rounded-full border border-forest/20 text-slate-600 hover:border-forest transition-all duration-300">TransformerGen-v4</button>
+                    <button onclick="updateChartData('model3')" class="chart-btn px-6 py-2.5 text-xs font-light tracking-widest uppercase rounded-full border border-forest/20 text-slate-600 hover:border-forest transition-all duration-300">DiffusionBio-Net</button>
+                    <button onclick="updateChartData('model4')" class="chart-btn px-6 py-2.5 text-xs font-light tracking-widest uppercase rounded-full border border-forest/20 text-slate-600 hover:border-forest transition-all duration-300">QuantumMol-Engine</button>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 bg-white/60 border border-slate-200/80 p-8 sm:p-12 rounded-3xl shadow-sm backdrop-blur-sm reveal">
+                    <div class="space-y-8">
+                        <div>
+                            <div class="flex justify-between text-xs font-mono mb-2">
+                                <span class="text-slate-600">Protein Structure Prediction Accuracy</span>
+                                <span id="val-1" class="text-lime font-medium">98.4%</span>
+                            </div>
+                            <div class="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
+                                <div id="bar-1" class="h-full bg-lime rounded-full transition-all duration-1000 ease-out" style="width: 98.4%;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-mono mb-2">
+                                <span class="text-slate-600">De Novo Sequence Synthesis Yield</span>
+                                <span id="val-2" class="text-cyan font-medium">92.1%</span>
+                            </div>
+                            <div class="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
+                                <div id="bar-2" class="h-full bg-cyan rounded-full transition-all duration-1000 ease-out" style="width: 92.1%;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-mono mb-2">
+                                <span class="text-slate-600">Off-Target Gene Editing Minimization</span>
+                                <span id="val-3" class="text-forest font-medium">99.2%</span>
+                            </div>
+                            <div class="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
+                                <div id="bar-3" class="h-full bg-forest rounded-full transition-all duration-1000 ease-out" style="width: 99.2%;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-mono mb-2">
+                                <span class="text-slate-600">Metabolic Pathway Throughput (PetaFLOPs)</span>
+                                <span id="val-4" class="text-slate-700 font-medium">85.6%</span>
+                            </div>
+                            <div class="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
+                                <div id="bar-4" class="h-full bg-slate-700 rounded-full transition-all duration-1000 ease-out" style="width: 85.6%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col justify-center border-l lg:border-l-slate-200/60 lg:pl-12">
+                        <h4 id="chart-title" class="text-xl font-light text-forest mb-4">AlphaFold-BioX Architecture</h4>
+                        <p id="chart-desc" class="text-slate-500 text-sm font-light leading-relaxed mb-6">
+                            State-of-the-art multi-modal transformer processing petabyte-scale genomic sequences to predict 3D atomic structures with near-experimental precision.
+                        </p>
+                        <div class="grid grid-cols-2 gap-4 text-xs font-mono text-slate-400">
+                            <div class="p-4 rounded-2xl bg-white/50 border border-slate-200/60">
+                                <span class="block text-forest font-normal text-sm mb-1" id="stat-latency">0.14 ms</span>
+                                Inference Latency
+                            </div>
+                            <div class="p-4 rounded-2xl bg-white/50 border border-slate-200/60">
+                                <span class="block text-forest font-normal text-sm mb-1" id="stat-nodes">10,240</span>
+                                Tensor Nodes
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- WebGL 3D Model 6: Biological Neural Networks -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white/60 border border-slate-200/80 rounded-3xl p-8 backdrop-blur-md reveal shadow-sm">
+                    <div class="lg:col-span-7 h-[400px] w-full rounded-2xl overflow-hidden relative bg-slate-950 border border-slate-800" id="webgl-neural"></div>
+                    <div class="lg:col-span-5 space-y-4">
+                        <span class="text-xs font-mono text-lime uppercase tracking-widest block">3D WebGL Visualization // 06</span>
+                        <h4 class="text-2xl font-light text-forest">Biological Neural Networks & Synapses</h4>
+                        <p class="text-slate-500 text-sm font-light leading-relaxed">
+                            3D network of interconnected neurons firing electrical impulses across synaptic clefts, modeling biological learning and memory storage.
+                        </p>
+                        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100">
+                            <span class="text-xs font-mono text-cyan block mb-1">INTERCONNECTION DYNAMICS</span>
+                            <p class="text-slate-600 text-xs font-light leading-relaxed">
+                                Biological neural networks process sensory inputs and environmental feedback, translating physical stimuli into adaptive physiological responses.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- WebGL 3D Model 7: AI Latent Networks -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white/60 border border-slate-200/80 rounded-3xl p-8 backdrop-blur-md reveal shadow-sm">
+                    <div class="lg:col-span-7 h-[400px] w-full rounded-2xl overflow-hidden relative bg-slate-950 border border-slate-800" id="webgl-ai"></div>
+                    <div class="lg:col-span-5 space-y-4">
+                        <span class="text-xs font-mono text-lime uppercase tracking-widest block">3D WebGL Visualization // 07</span>
+                        <h4 class="text-2xl font-light text-forest">AI Latent Networks & Tensor Nodes</h4>
+                        <p class="text-slate-500 text-sm font-light leading-relaxed">
+                            Multi-layered neural network architecture visualizing hidden layer activations, transformer attention heads, and biological predictive modeling.
+                        </p>
+                        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100">
+                            <span class="text-xs font-mono text-cyan block mb-1">INTERCONNECTION DYNAMICS</span>
+                            <p class="text-slate-600 text-xs font-light leading-relaxed">
+                                AI networks ingest petabyte-scale genomic and biomolecular data to simulate complex organisms, optimizing synthetic biology in autonomous bio-foundries.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="scope" class="py-36 px-8 bg-transparent">
+            <div class="max-w-6xl mx-auto space-y-16">
+                <div>
+                    <span class="text-[10px] font-mono font-light tracking-[0.3em] uppercase text-slate-400 mb-4 block">05 // CURRENT SCOPE</span>
+                    <h2 class="text-3xl sm:text-4xl font-extralight text-forest mb-12">Applications Across Therapeutics, Agriculture & Bio-Silicon</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                    <div class="reveal">
+                        <h3 class="text-xl font-extralight text-forest mb-3">Targeted Therapeutics</h3>
+                        <p class="text-slate-500 text-xs font-light leading-relaxed">Designing personalized enzyme inhibitors, therapeutic antibodies, and customized mRNA sequences for targeted medical interventions.</p>
+                    </div>
+                    <div class="reveal" style="transition-delay: 150ms;">
+                        <h3 class="text-xl font-extralight text-forest mb-3">Metabolic Engineering</h3>
+                        <p class="text-slate-500 text-xs font-light leading-relaxed">Reprogramming microbial cell lines to synthesize rare compounds, sustainable bio-materials, and clean biochemical energy sources.</p>
+                    </div>
+                    <div class="reveal" style="transition-delay: 300ms;">
+                        <h3 class="text-xl font-extralight text-forest mb-3">Synthetic Genomics</h3>
+                        <p class="text-slate-500 text-xs font-light leading-relaxed">Assembling synthetic viral and bacterial genomes with customized genetic safeguards and optimized codon sequences.</p>
+                    </div>
+                </div>
+
+                <!-- WebGL 3D Model 8: Machine Connectivity / Bio-Silicon -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white/60 border border-slate-200/80 rounded-3xl p-8 backdrop-blur-md reveal shadow-sm">
+                    <div class="lg:col-span-7 h-[400px] w-full rounded-2xl overflow-hidden relative bg-slate-950 border border-slate-800" id="webgl-connectivity"></div>
+                    <div class="lg:col-span-5 space-y-4">
+                        <span class="text-xs font-mono text-lime uppercase tracking-widest block">3D WebGL Visualization // 08</span>
+                        <h4 class="text-2xl font-light text-forest">Machine Connectivity & Bio-Silicon Synchronization</h4>
+                        <p class="text-slate-500 text-sm font-light leading-relaxed">
+                            Cyber-biological interface grid bridging living neural substrates with silicon computing processors for real-time biological feedback control.
+                        </p>
+                        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100">
+                            <span class="text-xs font-mono text-cyan block mb-1">INTERCONNECTION DYNAMICS</span>
+                            <p class="text-slate-600 text-xs font-light leading-relaxed">
+                                Machine connectivity enables closed-loop control over living systems, merging computational deep learning with real-time bio-synthesis.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- WebGL 3D Model 9: Plants & Agriculture -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white/60 border border-slate-200/80 rounded-3xl p-8 backdrop-blur-md reveal shadow-sm">
+                    <div class="lg:col-span-7 h-[400px] w-full rounded-2xl overflow-hidden relative bg-slate-950 border border-slate-800" id="webgl-agriculture"></div>
+                    <div class="lg:col-span-5 space-y-4">
+                        <span class="text-xs font-mono text-lime uppercase tracking-widest block">3D WebGL Visualization // 09</span>
+                        <h4 class="text-2xl font-light text-forest">Plant Cellular Networks & Crop Genomics</h4>
+                        <p class="text-slate-500 text-sm font-light leading-relaxed">
+                            3D structural simulation of chloroplasts, vascular bundles, and root microbiomes optimizing photosynthetic efficiency and drought resistance.
+                        </p>
+                        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100">
+                            <span class="text-xs font-mono text-cyan block mb-1">INTERCONNECTION DYNAMICS</span>
+                            <p class="text-slate-600 text-xs font-light leading-relaxed">
+                                Plants anchor global ecosystems, converting solar energy into biomass while interacting with soil microbiomes and atmospheric carbon monitored by AI networks.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="limitations" class="py-36 px-8 bg-transparent">
+            <div class="max-w-6xl mx-auto space-y-16">
+                <div>
+                    <span class="text-[10px] font-mono font-light tracking-[0.3em] uppercase text-slate-400 mb-4 block">06 // LIMITATIONS & GOVERNANCE</span>
+                    <h2 class="text-3xl sm:text-4xl font-extralight text-forest mb-12">Biological Stochasticity, Data Sparsity & Biosafety</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                    <div class="reveal">
+                        <h3 class="text-xl font-extralight text-forest mb-3">Biological Stochasticity</h3>
+                        <p class="text-slate-500 text-xs font-light leading-relaxed">Living systems exhibit inherently noisy in-vivo behavior compared to deterministic computational hardware, creating cellular drift.</p>
+                    </div>
+                    <div class="reveal" style="transition-delay: 150ms;">
+                        <h3 class="text-xl font-extralight text-forest mb-3">Phenotypic Data Sparsity</h3>
+                        <p class="text-slate-500 text-xs font-light leading-relaxed">While sequence databases are abundant, functional biological feedback loops remain resource-intensive and complex to standardize.</p>
+                    </div>
+                    <div class="reveal" style="transition-delay: 300ms;">
+                        <h3 class="text-xl font-extralight text-forest mb-3">Governance & Biosafety</h3>
+                        <p class="text-slate-500 text-xs font-light leading-relaxed">Generative biological design requires active, responsible safeguards to prevent unintentional creation of harmful biological sequences.</p>
+                    </div>
+                </div>
+
+                <!-- WebGL 3D Model 10: Environment & Biogeochemical Cycles -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white/60 border border-slate-200/80 rounded-3xl p-8 backdrop-blur-md reveal shadow-sm">
+                    <div class="lg:col-span-7 h-[400px] w-full rounded-2xl overflow-hidden relative bg-slate-950 border border-slate-800" id="webgl-environment"></div>
+                    <div class="lg:col-span-5 space-y-4">
+                        <span class="text-xs font-mono text-lime uppercase tracking-widest block">3D WebGL Visualization // 10</span>
+                        <h4 class="text-2xl font-light text-forest">Environmental Bioremediation & Ecosystems</h4>
+                        <p class="text-slate-500 text-sm font-light leading-relaxed">
+                            Planetary-scale simulation of carbon sequestration, microbial bioremediation, and climatic feedback loops managed through synthetic biology.
+                        </p>
+                        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100">
+                            <span class="text-xs font-mono text-cyan block mb-1">INTERCONNECTION DYNAMICS</span>
+                            <p class="text-slate-600 text-xs font-light leading-relaxed">
+                                Environmental systems represent the macro-level integration where genomes, microbiomes, plants, and machine connectivity converge to ensure planetary stability.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="future" class="py-44 px-8 bg-transparent">
+            <div class="max-w-4xl mx-auto text-center reveal">
+                <span class="text-[10px] font-mono font-light tracking-[0.3em] uppercase text-slate-400 mb-8 block">07 // THE HORIZON</span>
+                <h2 class="text-4xl sm:text-6xl font-extralight text-forest mb-8 leading-tight">
+                    Toward the Future of Life
+                </h2>
+                <p class="text-base sm:text-lg max-w-2xl mx-auto text-slate-500 font-extralight leading-relaxed">
+                    As computational deep learning and biological synthesis continue to integrate, we advance toward adaptive living systems engineered for human longevity, planetary balance, and long-term vitality.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-20 px-8 border-t border-slate-200/60 relative z-10 bg-white">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 text-xs text-slate-500 font-extralight">
+            <p>build and developed by <span class="text-forest font-normal">SHADMAN SHAKIB</span></p>
+            <a href="mailto:shadman.shakiblxl@gmail.com" class="hover:text-lime transition-colors">shadman.shakiblxl@gmail.com</a>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Hero Dots Canvas Animation
+            const canvas = document.getElementById('hero-dots-canvas');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                let width, height;
+                let particles = [];
+                
+                function resize() {
+                    width = canvas.width = window.innerWidth;
+                    height = canvas.height = window.innerHeight;
+                }
+                window.addEventListener('resize', resize);
+                resize();
+
+                for (let i = 0; i < 60; i++) {
+                    particles.push({
+                        x: Math.random() * width,
+                        y: Math.random() * height,
+                        radius: Math.random() * 2.2 + 1,
+                        vx: (Math.random() - 0.5) * 0.35,
+                        vy: (Math.random() - 0.5) * 0.35,
+                        alpha: Math.random() * 0.45 + 0.15
+                    });
+                }
+
+                function animateDots() {
+                    ctx.clearRect(0, 0, width, height);
+                    particles.forEach(p => {
+                        p.x += p.vx;
+                        p.y += p.vy;
+                        if (p.x < 0) p.x = width;
+                        if (p.x > width) p.x = 0;
+                        if (p.y < 0) p.y = height;
+                        if (p.y > height) p.y = 0;
+
+                        ctx.beginPath();
+                        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                        ctx.fillStyle = `rgba(101, 163, 13, ${p.alpha})`;
+                        ctx.fill();
+                    });
+                    requestAnimationFrame(animateDots);
+                }
+                animateDots();
+            }
+
+            setTimeout(() => {
+                document.querySelectorAll('.reveal-text').forEach(el => {
+                    el.classList.add('active');
+                });
+            }, 100);
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.12
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Initialize all 10 WebGL 3D Model Viewports
+            initThreeViewer('webgl-dna', 'dna');
+            initThreeViewer('webgl-biomol', 'biomolecules');
+            initThreeViewer('webgl-organelles', 'organelles');
+            initThreeViewer('webgl-microbiome', 'microbiome');
+            initThreeViewer('webgl-virus', 'virus');
+            initThreeViewer('webgl-neural', 'neural');
+            initThreeViewer('webgl-ai', 'ai');
+            initThreeViewer('webgl-connectivity', 'connectivity');
+            initThreeViewer('webgl-agriculture', 'agriculture');
+            initThreeViewer('webgl-environment', 'environment');
+        });
+
+        // Three.js 3D Viewer Factory for each gap/intersection
+        function initThreeViewer(containerId, type) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(60, container.clientWidth / container.clientHeight, 0.1, 1000);
+            camera.position.z = 18;
+
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            container.appendChild(renderer.domElement);
+
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+            scene.add(ambientLight);
+
+            const pointLight = new THREE.PointLight(0x65A30D, 2, 50);
+            pointLight.position.set(10, 10, 10);
+            scene.add(pointLight);
+
+            const pointLight2 = new THREE.PointLight(0x0891B2, 2, 50);
+            pointLight2.position.set(-10, -10, 10);
+            scene.add(pointLight2);
+
+            const group = new THREE.Group();
+
+            if (type === 'dna') {
+                const count = 30;
+                const radius = 3;
+                for (let i = 0; i < count; i++) {
+                    const theta = i * 0.4;
+                    const y = (i - count / 2) * 0.4;
+                    
+                    const x1 = Math.cos(theta) * radius;
+                    const z1 = Math.sin(theta) * radius;
+                    const x2 = Math.cos(theta + Math.PI) * radius;
+                    const z2 = Math.sin(theta + Math.PI) * radius;
+
+                    const sphereGeo = new THREE.SphereGeometry(0.35, 16, 16);
+                    const mat1 = new THREE.MeshStandardMaterial({ color: 0x65A30D, roughness: 0.3 });
+                    const mat2 = new THREE.MeshStandardMaterial({ color: 0x0891B2, roughness: 0.3 });
+
+                    const s1 = new THREE.Mesh(sphereGeo, mat1);
+                    s1.position.set(x1, y, z1);
+                    const s2 = new THREE.Mesh(sphereGeo, mat2);
+                    s2.position.set(x2, y, z2);
+
+                    group.add(s1);
+                    group.add(s2);
+
+                    const lineGeo = new THREE.CylinderGeometry(0.08, 0.08, radius * 2, 8);
+                    const lineMat = new THREE.MeshStandardMaterial({ color: 0xffffff, transparent: true, opacity: 0.3 });
+                    const line = new THREE.Mesh(lineGeo, lineMat);
+                    line.position.set(0, y, 0);
+                    line.rotation.z = Math.PI / 2;
+                    line.rotation.y = -theta;
+                    group.add(line);
+                }
+                group.userData = { vx: 0.003, vy: 0.01 };
+            } else if (type === 'biomolecules' || type === 'organelles') {
+                const nodeCount = 45;
+                const geo = new THREE.IcosahedronGeometry(0.4, 1);
+                for (let i = 0; i < nodeCount; i++) {
+                    const mat = new THREE.MeshStandardMaterial({
+                        color: i % 2 === 0 ? 0x65A30D : 0x0891B2,
+                        wireframe: i % 3 === 0,
+                        roughness: 0.2
+                    });
+                    const mesh = new THREE.Mesh(geo, mat);
+                    mesh.position.set(
+                        (Math.random() - 0.5) * 10,
+                        (Math.random() - 0.5) * 10,
+                        (Math.random() - 0.5) * 10
+                    );
+                    group.add(mesh);
+                }
+                group.userData = { vx: 0.004, vy: 0.006 };
+            } else if (type === 'microbiome' || type === 'environment' || type === 'agriculture') {
+                const clusterCount = 35;
+                for (let i = 0; i < clusterCount; i++) {
+                    const sphereGeo = new THREE.SphereGeometry(Math.random() * 0.6 + 0.2, 16, 16);
+                    const mat = new THREE.MeshStandardMaterial({
+                        color: i % 2 === 0 ? 0x10B981 : 0x06B6D4,
+                        roughness: 0.4
+                    });
+                    const mesh = new THREE.Mesh(sphereGeo, mat);
+                    mesh.position.set(
+                        (Math.random() - 0.5) * 12,
+                        (Math.random() - 0.5) * 12,
+                        (Math.random() - 0.5) * 12
+                    );
+                    group.add(mesh);
+                }
+                group.userData = { vx: 0.002, vy: 0.005 };
+            } else if (type === 'virus') {
+                const radius = 4;
+                const sphereGeo = new THREE.SphereGeometry(radius, 32, 32);
+                const mat = new THREE.MeshStandardMaterial({ color: 0xef4444, roughness: 0.2, wireframe: true });
+                const core = new THREE.Mesh(sphereGeo, mat);
+                group.add(core);
+
+                for (let i = 0; i < 40; i++) {
+                    const spikeGeo = new THREE.ConeGeometry(0.2, 1.5, 8);
+                    const spikeMat = new THREE.MeshStandardMaterial({ color: 0x65A30D });
+                    const spike = new THREE.Mesh(spikeGeo, spikeMat);
+                    
+                    const phi = Math.acos(-1 + (2 * i) / 40);
+                    const theta = Math.sqrt(40 * Math.PI) * phi;
+                    spike.position.setFromSphericalCoords(radius + 0.7, phi, theta);
+                    spike.lookAt(0, 0, 0);
+                    spike.rotateX(Math.PI / 2);
+                    group.add(spike);
+                }
+                group.userData = { vx: 0.004, vy: 0.007 };
+            } else if (type === 'neural' || type === 'ai' || type === 'connectivity') {
+                const layers = 4;
+                const nodesPerLayer = 5;
+                for (let l = 0; l < layers; l++) {
+                    for (let n = 0; n < nodesPerLayer; n++) {
+                        const sphereGeo = new THREE.SphereGeometry(0.3, 16, 16);
+                        const mat = new THREE.MeshStandardMaterial({ color: l === 0 ? 0x0891B2 : (l === layers - 1 ? 0x65A30D : 0xffffff) });
+                        const node = new THREE.Mesh(sphereGeo, mat);
+                        node.position.set(
+                            (l - layers / 2) * 3.5,
+                            (n - nodesPerLayer / 2) * 2.2,
+                            (Math.random() - 0.5) * 2
+                        );
+                        group.add(node);
+                    }
+                }
+                group.userData = { vx: 0.002, vy: 0.004 };
+            }
+
+            scene.add(group);
+
+            window.addEventListener('resize', () => {
+                if (!container) return;
+                camera.aspect = container.clientWidth / container.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(container.clientWidth, container.clientHeight);
+            });
+
+            function animate() {
+                requestAnimationFrame(animate);
+                group.rotation.x += group.userData.vx || 0.005;
+                group.rotation.y += group.userData.vy || 0.008;
+                renderer.render(scene, camera);
+            }
+            animate();
+        }
+
+        // Interactive Benchmarks Bar Chart Updater
+        const modelData = {
+            model1: {
+                name: "AlphaFold-BioX Architecture",
+                desc: "State-of-the-art multi-modal transformer processing petabyte-scale genomic sequences to predict 3D atomic structures with near-experimental precision.",
+                v1: "98.4%", w1: "98.4%",
+                v2: "92.1%", w2: "92.1%",
+                v3: "99.2%", w3: "99.2%",
+                v4: "85.6%", w4: "85.6%",
+                latency: "0.14 ms",
+                nodes: "10,240"
+            },
+            model2: {
+                name: "TransformerGen-v4 Engine",
+                desc: "Generative neural network optimized for de novo protein design, creating novel enzymes and synthetic organelles beyond natural evolutionary constraints.",
+                v1: "91.2%", w1: "91.2%",
+                v2: "97.8%", w2: "97.8%",
+                v3: "88.5%", w3: "88.5%",
+                v4: "94.3%", w4: "94.3%",
+                latency: "0.08 ms",
+                nodes: "16,384"
+            },
+            model3: {
+                name: "DiffusionBio-Net Framework",
+                desc: "Advanced generative diffusion models applied to molecular dynamics and binding affinity simulations across complex cellular environments.",
+                v1: "94.8%", w1: "94.8%",
+                v2: "89.4%", w2: "89.4%",
+                v3: "96.1%", w3: "96.1%",
+                v4: "91.0%", w4: "91.0%",
+                latency: "0.22 ms",
+                nodes: "8,192"
+            },
+            model4: {
+                name: "QuantumMol-Engine System",
+                desc: "Quantum-accurate molecular simulations powered by graph neural networks providing atomic resolution for targeted drug discovery.",
+                v1: "96.5%", w1: "96.5%",
+                v2: "94.0%", w2: "94.0%",
+                v3: "97.9%", w3: "97.9%",
+                v4: "95.2%", w4: "95.2%",
+                latency: "0.19 ms",
+                nodes: "20,480"
+            }
+        };
+
+        function updateChartData(modelKey) {
+            const data = modelData[modelKey];
+            if (!data) return;
+
+            document.getElementById('chart-title').innerText = data.name;
+            document.getElementById('chart-desc').innerText = data.desc;
+            document.getElementById('val-1').innerText = data.v1;
+            document.getElementById('bar-1').style.width = data.w1;
+            document.getElementById('val-2').innerText = data.v2;
+            document.getElementById('bar-2').style.width = data.w2;
+            document.getElementById('val-3').innerText = data.v3;
+            document.getElementById('bar-3').style.width = data.w3;
+            document.getElementById('val-4').innerText = data.v4;
+            document.getElementById('bar-4').style.width = data.w4;
+            document.getElementById('stat-latency').innerText = data.latency;
+            document.getElementById('stat-nodes').innerText = data.nodes;
+
+            document.querySelectorAll('.chart-btn').forEach(btn => {
+                btn.classList.remove('bg-forest', 'text-white');
+                btn.classList.add('text-slate-600', 'hover:border-forest');
+            });
+            event.target.classList.add('bg-forest', 'text-white');
+            event.target.classList.remove('text-slate-600', 'hover:border-forest');
+        }
+    </script>
+</body>
+</html>
